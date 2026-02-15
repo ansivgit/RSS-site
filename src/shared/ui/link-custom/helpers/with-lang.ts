@@ -9,5 +9,7 @@ export function withLang(lang: string, path: string) {
     return `/${lang}`;
   }
 
-  return `/${lang}${path}`;
+  const normalizedPath = path.startsWith('/') ? path : `/${path}`;
+
+  return `/${lang}${normalizedPath}`;
 }
