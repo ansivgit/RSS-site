@@ -195,9 +195,13 @@ function Result({ result, lang }: { result: PagefindSearchResult;
       const { hash, pathname } = urlObj;
       const cleanedPathname = pathname.endsWith('.html') ? pathname.slice(0, -5) : pathname;
 
-      const finalPathname = lang === 'en'
-        ? cleanedPathname.replace('/docs/en/', '/docs/')
-        : cleanedPathname;
+      const alreadyHasLangPrefix = cleanedPathname.startsWith(`/${lang}/`) || cleanedPathname === `/${lang}`;
+      const finalPathname =
+        lang === 'en'
+          ? cleanedPathname.replace('/docs/en/', '/docs/')
+          : alreadyHasLangPrefix
+            ? cleanedPathname
+            : `/${lang}${cleanedPathname}`;
 
       const finalUrl = `${finalPathname}${hash}`;
 
@@ -213,7 +217,7 @@ function Result({ result, lang }: { result: PagefindSearchResult;
 
   return (
     <div>
-      <LinkCustom href={removeHtmlExtension(data.url)} className={cx('link')}>
+      <LinkCustom href={removeHtmlExtension(data.url)} className={cx('link')} preserveLang={false}>
         <Subtitle size="extra-small" weight="bold">{data.meta.title}</Subtitle>
         {/*
           Pagefind excerpts contain highlight <mark> tags.

@@ -1,19 +1,10 @@
 import { ROUTES } from '@/shared/constants';
 
 export function withLang(lang: string, path: string) {
-  if (path.startsWith(`/${lang}/`) || path === `/${lang}`) {
-    return path;
-  }
+  const split = path.split('/');
 
-  if (lang === 'en') {
-    return path;
-  }
+  split.unshift(lang);
+  const preparedPath = split.filter(Boolean).join('/');
 
-  if (path === ROUTES.HOME) {
-    return `/${lang}`;
-  }
-
-  const normalizedPath = path.startsWith('/') ? path : `/${path}`;
-
-  return `/${lang}${normalizedPath}`;
+  return path === ROUTES.HOME ? `/${lang}` : `/${preparedPath}`;
 }
