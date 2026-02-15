@@ -5,6 +5,10 @@ export function withLang(lang: string, path: string) {
     return path;
   }
 
+  if (lang === 'en') {
+    return path;
+  }
+
   if (path === ROUTES.HOME) {
     return `/${lang}`;
   }
