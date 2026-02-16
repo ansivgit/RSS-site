@@ -65,7 +65,7 @@ export default function Search({ lang, resultsRef }: SearchProps) {
       try {
         if (!isRunningInDev) {
           window.pagefind = await import(
-            /* webpackIgnore: true */ `/_next/static/pagefind/${lang}/pagefind.js`,
+            /* webpackIgnore: true */ `/pagefind/${lang}/pagefind.js`,
           );
           if (stale) {
             return;
