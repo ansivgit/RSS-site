@@ -76,9 +76,8 @@ export default function Search({ lang, resultsRef }: SearchProps) {
           }
 
           const otherLang = lang === 'en' ? 'ru' : 'en';
-          await window.pagefind?.mergeIndex?.(`/pagefind/${otherLang}/`, {
-            bundlePath: `/pagefind/${otherLang}/`,
-          });
+
+          await window.pagefind?.mergeIndex?.(`/pagefind/${otherLang}/`, { bundlePath: `/pagefind/${otherLang}/` });
         } else {
           window.pagefind = { search: async () => ({ results: MOCKED_SEARCH }) as unknown as PagefindSearchResults };
         }
